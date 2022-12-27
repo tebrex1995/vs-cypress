@@ -11,7 +11,7 @@ class TimeOffManagement {
     return cy.get('button[name="close-new-board-modal-btn"]');
   }
   get teamMember() {
-    return cy.get('a[href="/organizations/24361/team"]');
+    return cy.get('a[href="/organizations/89113/team"]');
   }
 
   get openModal() {

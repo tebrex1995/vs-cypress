@@ -1,23 +1,15 @@
 /// <reference types="cypress" />
-
+import { login } from "../page_objects/login";
 var token;
 
 describe("Login with Backend", () => {
-  beforeEach("Login", () => {
-    cy.request("POST", "https://www.vivifyscrum.com/api/v2/login", {
-      email: "akimadafaki@hotmail.com ",
-      password: "emausla123",
-    })
-      .its("body")
-      .then((response) => {
-        token = response.token;
-      });
-  });
-  beforeEach("Set token in window storage", () => {
-    window.localStorage.setItem("token", token);
+  before("Login", () => {
+    cy.visit("/");
+    cy.loginThroughBackend();
   });
 
   it("Check for login", () => {
-    cy.request;
+    cy.visit("/");
+    cy.url().should("contain", "/my-organizations");
   });
 });

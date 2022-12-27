@@ -9,20 +9,25 @@ var vacNumber = faker.random.numeric();
 describe("Time off management tests", () => {
   before("visit home page", () => {
     cy.visit("");
+    cy.loginThroughBackend();
   });
 
-  it("Valid login", () => {
-    cy.intercept(
-      "POST",
-      "https://cypress-api.vivifyscrum-stage.com/api/v2/login"
-    ).as("token");
-    cy.visit("");
-    login.login();
-    login.loginButton.should("not.exist");
+  // it("Valid login", () => {
+  //   cy.intercept(
+  //     "POST",
+  //     "https://cypress-api.vivifyscrum-stage.com/api/v2/login"
+  //   ).as("token");
+  //   cy.visit("");
+  //   login.login();
+  //   login.loginButton.should("not.exist");
+  //   cy.url().should("contain", "/my-organizations");
+  //   cy.wait("@token").then((intercept) => {
+  //     token = intercept.response.body.token;
+  //   });
+  // });
+  it("Check for login", () => {
+    cy.visit("/");
     cy.url().should("contain", "/my-organizations");
-    cy.wait("@token").then((intercept) => {
-      token = intercept.response.body.token;
-    });
   });
 
   it("Visit Time Off Tab", () => {
