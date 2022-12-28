@@ -42,5 +42,36 @@ describe("Time off management tests", () => {
 
   it("Add Vacation Days", () => {
     timeOffManagement.useVac();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.deleteVac();
   });
+
+  it("Add Parental leave Days", () => {
+    timeOffManagement.useParental();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Sick leave Days", () => {
+    timeOffManagement.useSickLeave();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Paid leave Days", () => {
+    timeOffManagement.usePaid();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Unpaid leave Days", () => {
+    timeOffManagement.useUnpaid();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Other Days", () => {
+    timeOffManagement.useOther();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.deleteVac();
+  });
+  // it("Delete Vacation", () => {
+  //   timeOffManagement.deleteVac();
+  // });
 });
