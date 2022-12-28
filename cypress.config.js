@@ -11,6 +11,7 @@ module.exports = defineConfig({
     env: {
       validEmail: "akimadafaki@hotmail.com",
       validPassword: "Emausla123",
+      membersEmail: "qatest@gmail.com",
     },
   },
 });

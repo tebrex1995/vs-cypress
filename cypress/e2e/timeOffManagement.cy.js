@@ -5,7 +5,7 @@ import { timeOffManagement } from "../page_objects/timeOffManagement";
 import { faker } from "@faker-js/faker";
 
 var token;
-var vacNumber = faker.random.numeric();
+var vacNumber = 50;
 describe("Time off management tests", () => {
   before("visit home page", () => {
     cy.visit("/");
@@ -46,20 +46,25 @@ describe("Time off management tests", () => {
     timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
     timeOffManagement.deleteVac();
   });
-
-  it("Add Parental leave Days", () => {
+  //Puca test na Asertaciji i ne smanjuje se broj dana nakon drugog dodavanja//
+  it("Add Parental Days", () => {
+    cy.wait(2000);
     timeOffManagement.useParental();
     timeOffManagement.vacDuration.should("contain", "7d");
     timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
     timeOffManagement.deleteVac();
   });
   it("Add Sick leave Days", () => {
+    cy.wait(2000);
+
     timeOffManagement.useSickLeave();
     timeOffManagement.vacDuration.should("contain", "7d");
     timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
     timeOffManagement.deleteVac();
   });
   it("Add Paid leave Days", () => {
+    cy.wait(2000);
+
     timeOffManagement.usePaid();
     timeOffManagement.vacDuration.should("contain", "7d");
     timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");

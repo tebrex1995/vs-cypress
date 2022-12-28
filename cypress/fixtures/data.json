@@ -2,5 +2,6 @@
   "validCredentials": {
     "email": "akimadafaki@hotmail.com",
     "password": "Emausla123"
-  }
+  },
+  "member": { "email": "qatest@gmail.com", "name": "Test" }
 }

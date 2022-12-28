@@ -7,6 +7,10 @@ class TimeOffManagement {
     return cy.get('button[name="close-new-board-modal-btn"]');
   }
 
+  get teamManagementButton() {
+    return cy.get(".vs-c-modal--features-confirm-button");
+  }
+
   get newModalButton() {
     return cy.get('button[name="close-new-board-modal-btn"]');
   }
@@ -15,7 +19,7 @@ class TimeOffManagement {
   }
 
   get openModal() {
-    return cy.get('a[title="Edit Member"]');
+    return cy.get('a[title="Edit Member"]').eq(1);
   }
 
   get timeOff() {
@@ -97,7 +101,6 @@ class TimeOffManagement {
   }
   visitTimeOff() {
     this.myOrganisation.click();
-
     this.newBoardButton.click();
     this.teamMember.click();
     this.newModalButton.click();
@@ -172,6 +175,13 @@ class TimeOffManagement {
   deleteVac() {
     cy.get(".el-button--mini.el-tooltip:nth-child(2)").click({ force: true });
     this.yesButton.click();
+  }
+
+  visitTeam() {
+    this.myOrganisation.click();
+    this.newBoardButton.click();
+    this.teamMember.click();
+    this.teamManagementButton.click();
   }
 }
 
