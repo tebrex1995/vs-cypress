@@ -6,11 +6,11 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
 
-    baseUrl: "https://app.vivifyscrum.com/login",
+    baseUrl: "https://cypress.vivifyscrum-stage.com/login",
     watchForFileChanges: false,
     env: {
       validEmail: "akimadafaki@hotmail.com",
-      validPassword: "emausla123",
+      validPassword: "Emausla123",
     },
   },
 });
