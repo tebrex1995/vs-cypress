@@ -68,9 +68,36 @@ class TimeOffManagement {
   get calendar() {
     return cy.get('input[class="el-input__inner"]').eq(1);
   }
+
+  get firstDate() {
+    return cy.get(
+      ".el-date-range-picker__content.is-left:nth-child(1) table.el-date-table tbody:nth-child(1) tr.el-date-table__row:nth-child(6) > td.available:nth-child(7)"
+    );
+  }
+
+  get secondDate() {
+    return cy.get(
+      ".el-date-range-picker__content.is-right:nth-child(2) table.el-date-table tbody:nth-child(1) tr.el-date-table__row:nth-child(4) > td.available:nth-child(3)"
+    );
+  }
+
+  get addButton() {
+    return cy.get("button[type=button]").contains("Add");
+  }
+
+  get yesButton() {
+    return cy.get('button[name="save-btn"]');
+  }
+
+  get vacDuration() {
+    return cy.get("span.vs-c-time-off__time-text_span:nth-child(4)");
+  }
+  get otherName() {
+    return cy.get('input[placeholder="Name"]');
+  }
   visitTimeOff() {
     this.myOrganisation.click();
-    cy.wait(2000);
+
     this.newBoardButton.click();
     this.teamMember.click();
     this.newModalButton.click();
@@ -89,6 +116,62 @@ class TimeOffManagement {
     this.dropDown.click();
     this.vacation.click();
     this.calendar.click();
+    this.firstDate.click();
+    this.secondDate.click();
+    this.addButton.click();
+  }
+
+  useParental() {
+    this.addEvent.click();
+    this.dropDown.click();
+    this.parentalLeave.click();
+    this.calendar.click();
+    this.firstDate.click();
+    this.secondDate.click();
+    this.addButton.click();
+  }
+  useSickLeave() {
+    this.addEvent.click();
+    this.dropDown.click();
+    this.sickLeave.click();
+    this.calendar.click();
+    this.firstDate.click();
+    this.secondDate.click();
+    this.addButton.click();
+  }
+  usePaid() {
+    this.addEvent.click();
+    this.dropDown.click();
+    this.paidTime.click();
+    this.calendar.click();
+    this.firstDate.click();
+    this.secondDate.click();
+    this.addButton.click();
+  }
+  useUnpaid() {
+    this.addEvent.click();
+    this.dropDown.click();
+    this.unpaidTime.click();
+    this.calendar.click();
+    this.firstDate.click();
+    this.secondDate.click();
+    this.addButton.click();
+  }
+
+  useOther() {
+    this.addEvent.click();
+    this.dropDown.click();
+    this.other.click();
+    this.otherName.type("Jebigica");
+    this.calendar.click();
+    this.firstDate.click();
+    this.secondDate.click();
+    this.addButton.click();
+  }
+
+  deleteVac() {
+    cy.get(".el-button--mini.el-tooltip:nth-child(2)").click({ force: true });
+    this.yesButton.click();
   }
 }
 

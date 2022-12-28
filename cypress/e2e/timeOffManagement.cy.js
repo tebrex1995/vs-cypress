@@ -8,7 +8,7 @@ var token;
 var vacNumber = faker.random.numeric();
 describe("Time off management tests", () => {
   before("visit home page", () => {
-    cy.visit("");
+    cy.visit("/");
   });
 
   it("Valid login", () => {
@@ -16,13 +16,15 @@ describe("Time off management tests", () => {
       "POST",
       "https://cypress-api.vivifyscrum-stage.com/api/v2/login"
     ).as("token");
-    cy.visit("");
     login.login();
     login.loginButton.should("not.exist");
     cy.url().should("contain", "/my-organizations");
     cy.wait("@token").then((intercept) => {
       token = intercept.response.body.token;
     });
+  });
+  it("Check for login", () => {
+    cy.url().should("contain", "/my-organizations");
   });
 
   it("Visit Time Off Tab", () => {
@@ -40,5 +42,42 @@ describe("Time off management tests", () => {
 
   it("Add Vacation Days", () => {
     timeOffManagement.useVac();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
+    timeOffManagement.deleteVac();
   });
+
+  it("Add Parental leave Days", () => {
+    timeOffManagement.useParental();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Sick leave Days", () => {
+    timeOffManagement.useSickLeave();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Paid leave Days", () => {
+    timeOffManagement.usePaid();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Unpaid leave Days", () => {
+    timeOffManagement.useUnpaid();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
+    timeOffManagement.deleteVac();
+  });
+  it("Add Other Days", () => {
+    timeOffManagement.useOther();
+    timeOffManagement.vacDuration.should("contain", "7d");
+    timeOffManagement.vacDayCount.should("contain", vacNumber - 7 + "d");
+    timeOffManagement.deleteVac();
+  });
+  // it("Delete Vacation", () => {
+  //   timeOffManagement.deleteVac();
+  // });
 });
