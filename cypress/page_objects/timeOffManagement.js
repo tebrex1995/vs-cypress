@@ -117,7 +117,7 @@ class TimeOffManagement {
   useVac() {
     this.addEvent.click();
     this.dropDown.click();
-    this.vacation.click();
+    this.vacation.eq(1).click();
     this.calendar.click();
     this.firstDate.click();
     this.secondDate.click();
@@ -165,7 +165,7 @@ class TimeOffManagement {
     this.addEvent.click();
     this.dropDown.click();
     this.other.click();
-    this.otherName.type("Jebigica");
+    this.otherName.type("Odmor");
     this.calendar.click();
     this.firstDate.click();
     this.secondDate.click();
