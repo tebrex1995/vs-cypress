@@ -25,6 +25,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import { faker } from "@faker-js/faker";
 import { login } from "../page_objects/login";
+import { createBoard } from "../page_objects/createBoard";
+
 var token;
 
 Cypress.Commands.add("login", () => {
@@ -46,7 +48,7 @@ Cypress.Commands.add("login", () => {
 Cypress.Commands.add("loginBE", () => {
   cy.request({
     method: "POST",
-    url: "https://www.vivifyscrum.com/api/v2/login",
+    url: "https://cypress-api.vivifyscrum-stage.com/api/v2/login",
     body: {
       email: Cypress.env("validEmail"),
       password: Cypress.env("validPassword"),
@@ -55,8 +57,11 @@ Cypress.Commands.add("loginBE", () => {
     .its("body")
     .then((response) => {
       window.localStorage.setItem("token", response.token);
-      // window.localStorage.setItem("user", JSON.stringify(response.user));
-      // window.localStorage.setItem("user_id", response.user.id);
+      token = response.token;
+      window.localStorage.setItem("token", token);
+      Cypress.env("myToken", token);
+      // window.localStorage.setItem("user", JSON.stringify(response.body.user));
+      // window.localStorage.setItem("user_id", response.body.user.id);
     });
 });
 
@@ -87,5 +92,19 @@ Cypress.Commands.add("deleteOrg", () => {
     headers: {
       authorization: `Bearer ${Cypress.env("myToken")}`,
     },
+  });
+});
+
+Cypress.Commands.add("createBoard", () => {
+  cy.intercept(
+    "POST",
+    "https://cypress-api.vivifyscrum-stage.com/api/v2/boards"
+  ).as("createBoard");
+  createBoard.createBoard();
+  cy.url().should("contain", "/boards");
+  cy.wait("@createBoard").then((intercept) => {
+    console.log(intercept);
+    Cypress.env("boardId", intercept.response.body.id);
+    expect(intercept.response.statusCode).to.eq(201);
   });
 });

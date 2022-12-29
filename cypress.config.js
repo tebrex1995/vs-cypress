@@ -14,6 +14,7 @@ module.exports = defineConfig({
       membersEmail: "qatest@gmail.com",
       myToken: "",
       orgId: "",
+      boardId: "",
     },
   },
 });

@@ -1,8 +1,11 @@
 import data from "../fixtures/data.json";
+import { createBoard } from "../page_objects/createBoard";
 
 class Boards {
   get boards() {
-    return cy.get('a[href="/organizations/24361/boards"]').eq(1);
+    return cy
+      .get(`a[href="/organizations/${Cypress.env("orgId")}/boards"]`)
+      .eq(1);
   }
   get okButton() {
     return cy.get(".vs-c-modal--features-confirm-button");
@@ -22,6 +25,9 @@ class Boards {
   get teamMember() {
     return cy.get(".vs-c-team-member");
   }
+  get teamMemberAddButton() {
+    return cy.get(".vs-c-team-member__add-btn");
+  }
   get teamMemberName() {
     return cy.get(".vs-c-team-member__name");
   }
@@ -30,7 +36,7 @@ class Boards {
   }
 
   get teamMembers() {
-    return cy.get('a[href="/boards/13568/team"]');
+    return cy.get(`a[href="/boards/${Cypress.env("boardId")}/team"]`);
   }
 
   get firstBoard() {
@@ -46,9 +52,10 @@ class Boards {
     return cy.get('button[name="save-btn"]');
   }
   addTeamMemberToBoard(email) {
-    this.boards.click();
     this.okButton.click();
-    this.addToBoard.click({ force: true });
+    cy.createBoard();
+    this.teamMembers.click();
+    this.teamMemberAddButton.click();
     this.memberInput.type(email);
     this.inviteButton.click();
     this.firstBoard.click();
