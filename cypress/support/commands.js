@@ -23,8 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { faker } from "@faker-js/faker";
+import { createOrganization } from "../page_objects/logout";
+var token;
 
-Cypress.Commands.add("loginThroughBackend", () => {
+Cypress.Commands.add("login", () => {
   cy.request({
     method: "POST",
     url: "https://www.vivifyscrum.com/api/v2/login",
@@ -36,7 +39,26 @@ Cypress.Commands.add("loginThroughBackend", () => {
     .its("body")
     .then((response) => {
       window.localStorage.setItem("token", response.token);
-      window.localStorage.setItem("user", JSON.stringify(response.user));
-      window.localStorage.setItem("user_id", response.user.id);
+      // window.localStorage.setItem("user", JSON.stringify(response.user));
+      // window.localStorage.setItem("user_id", response.user.id);
     });
+});
+
+Cypress.Commands.add("createOrg", () => {
+  cy.visit("/my-organizations");
+  cy.request({
+    method: "POST",
+    url: "https://cypress-api.vivifyscrum-stage.com/api/v2/organizations",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+
+    body: {
+      name: faker.company.name(),
+      avatar_crop_cords: {},
+    },
+  }).then((response) => {
+    console.log(response);
+    orgId = response.id;
+  });
 });
