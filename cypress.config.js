@@ -12,6 +12,8 @@ module.exports = defineConfig({
       validEmail: "akimadafaki@hotmail.com",
       validPassword: "Emausla123",
       membersEmail: "qatest@gmail.com",
+      myToken: "",
+      orgId: "",
     },
   },
 });
